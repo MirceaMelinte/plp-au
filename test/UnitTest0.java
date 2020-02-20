@@ -1,3 +1,5 @@
-public class Bar {
+package test;
+
+public class UnitTest0 {
 
 }
