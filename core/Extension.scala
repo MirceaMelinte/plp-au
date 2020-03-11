@@ -1,5 +1,5 @@
 package core
 
-class Extension {
+object Extension {
 
 }

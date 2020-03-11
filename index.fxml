@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane xmlns:fx="http://javafx.com/fxml/1" prefWidth="1366" prefHeight="768" fx:controller="graphics.Processor">
+    <children>
+        <Canvas
+            fx:id="drawingCanvas"
+            width="900"
+            height="570" />
+
+        <TextArea
+            fx:id="textAreaEditor"
+            layoutX="900"
+            layoutY="0"
+            prefWidth="466"
+            prefHeight="768"
+            style="-fx-font-size: 16" />
+
+        <TextArea
+            fx:id="textAreaErrors"
+            layoutX="0"
+            layoutY="570"
+            prefWidth="900"
+            prefHeight="198"
+            style="-fx-font-size: 14" />
+    </children>
+</Pane>
