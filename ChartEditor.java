@@ -3,19 +3,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class ChartEditor extends Application {
-    static final String fxmlFilePath = "index.fxml";
+    static final String FXML_FILE_PATH = "index.fxml";
 
-    static final short sceneWidth = 1366;
-    static final short sceneHeight = 768;
+    static final short SCENE_WIDTH = 1366;
+    static final short SCENE_HEIGHT = 768;
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource(fxmlFilePath));
+        Parent parent = FXMLLoader.load(getClass().getClassLoader().getResource(FXML_FILE_PATH));
 
-        stage.setScene(new Scene(parent, sceneWidth, sceneHeight));
+        stage.setScene(new Scene(parent, SCENE_WIDTH, SCENE_HEIGHT));
         stage.setResizable(false);
 
         stage.show();
