@@ -5,9 +5,9 @@ import javafx.scene.paint.Color;
 public class DrawResult {
     private int xCoordinate;
     private int yCoordinate;
-    private Color color;
+    private String color;
 
-    public DrawResult(int xCoordinate, int yCoordinate, Color color) {
+    public DrawResult(int xCoordinate, int yCoordinate, String color) {
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
         this.color = color;
@@ -29,11 +29,11 @@ public class DrawResult {
         this.yCoordinate = yCoordinate;
     }
 
-    public Color getColor() {
+    public String getColor() {
         return this.color;
     }
 
-    public void setColor(Color color) {
+    public void setColor(String color) {
         this.color = color;
     }
 }
