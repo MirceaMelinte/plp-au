@@ -7,6 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import model.DrawResult;
 import model.TextResult;
 
@@ -34,14 +35,11 @@ public class ViewModel {
         });
     }
 
-    public void handleError(String output) {
-        textAreaErrors.setText(output);
-    }
-
     private void processEditorInput() {
         String editorInput = textAreaEditor.getText();
 
-        List<DrawResult> resultSet = Interpreter.translateCommandText(
+        List<DrawResult> resultSet;
+        resultSet = Interpreter.translateCommandText(
             editorInput,
             (String errorText) -> {
                 textAreaErrors.setText(errorText);
@@ -60,10 +58,12 @@ public class ViewModel {
         for (DrawResult result: resultSet) {
             if (result instanceof TextResult) {
                 TextResult textResult = (TextResult)result;
-                context.strokeText(textResult.getText(), textResult.getXCoordinate(), textResult.getYCoordinate());
+
+                context.setFont(Font.font(20D));
+                context.fillText(textResult.getText(), textResult.getXCoordinate(), textResult.getYCoordinate());
             } else {
                 PixelWriter pixelWriter = context.getPixelWriter();
-                pixelWriter.setColor(result.getXCoordinate(), result.getYCoordinate(), Color.web(result.getColor()));
+                pixelWriter.setColor(result.getXCoordinate(), result.getYCoordinate(), Color.web(result.getColor(), 1D));
             }
         }
     }

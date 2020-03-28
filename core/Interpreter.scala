@@ -6,9 +6,11 @@ import scala.collection.JavaConverters._
 object Interpreter {
     def translateCommandText(cmdText: String, errorCallback: String => Unit): java.util.List[DrawResult] = {
         // TODO: Implement exception handling
-        val validCommandText = cmdText.replaceAll(Expressions.specialCharsExcept, "")
+        val (boundingBoxCommand, shapeCommands) =
+            cmdText
+                .replaceAll(Expressions.specialCharsExcept, "")
+                .split(Expressions.newLineEscape, 2) match {
 
-        val (boundingBoxCommand, shapeCommands) = validCommandText.split(Expressions.newLineEscape, 2) match {
             case Array(boundingBoxCmdText, shapeCmdText) =>
                 (boundingBoxCmdText, shapeCmdText.split(Expressions.newLineEscape))
         }
