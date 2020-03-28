@@ -1,7 +1,5 @@
 package model;
 
-import javafx.scene.paint.Color;
-
 public class TextResult extends DrawResult {
     private String text;
 
@@ -12,9 +10,5 @@ public class TextResult extends DrawResult {
 
     public String getText() {
         return this.text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 }

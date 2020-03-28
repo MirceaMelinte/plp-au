@@ -17,23 +17,11 @@ public class DrawResult {
         return this.xCoordinate;
     }
 
-    public void setXCoordinate(int xCoordinate) {
-        this.xCoordinate = xCoordinate;
-    }
-
     public int getYCoordinate() {
         return this.yCoordinate;
     }
 
-    public void setYCoordinate(int yCoordinate) {
-        this.yCoordinate = yCoordinate;
-    }
-
     public String getColor() {
         return this.color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
     }
 }

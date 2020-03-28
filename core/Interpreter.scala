@@ -5,21 +5,26 @@ import scala.collection.JavaConverters._
 
 object Interpreter {
     def translateCommandText(cmdText: String, errorCallback: String => Unit): java.util.List[DrawResult] = {
-        // TODO: Implement exception handling
-        val (boundingBoxCommand, shapeCommands) =
-            cmdText
-                .replaceAll(Expressions.specialCharsExcept, "")
-                .split(Expressions.newLineEscape, 2) match {
+        try {
+            val (boundingBoxCommand, shapeCommands) =
+                cmdText
+                    .replaceAll(Expressions.specialCharsExcept, "")
+                    .split(Expressions.newLineEscape, 2) match {
 
-            case Array(boundingBoxCmdText, shapeCmdText) =>
-                (boundingBoxCmdText, shapeCmdText.split(Expressions.newLineEscape))
+                case Array(boundingBoxCmdText, shapeCmdText) =>
+                    (boundingBoxCmdText, shapeCmdText.split(Expressions.newLineEscape))
+            }
+
+            shapeCommands
+                .map((commandText: String) => Format.getCoordinateList(commandText))
+                .reduce((left, right) => left:::right)
+                .filter(drawResult => clipOutOfBoundsDrawings(drawResult, boundingBoxCommand))
+                .asJava
+        } catch {
+            case ex: RuntimeException =>
+                errorCallback("Syntax error(s) have been found in the following line/command:\n" + ex.getMessage())
+                List[DrawResult]().asJava
         }
-
-        shapeCommands
-            .map((commandText: String) => Format.getCoordinateList(commandText))
-            .reduce((left, right) => left:::right)
-            .filter(drawResult => clipOutOfBoundsDrawings(drawResult, boundingBoxCommand))
-            .asJava
     }
 
     def clipOutOfBoundsDrawings(drawResult: DrawResult, boundingBoxCommand: String): Boolean = {

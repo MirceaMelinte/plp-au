@@ -27,11 +27,11 @@ object Format {
             List[TextResult](new TextResult(argX, argY, "#000000", argText))
 
         case Expressions.drawPattern(color: String, commandText: String) =>
-            Nil
+            Draw.generateColoredPixels(color, getCoordinateList(commandText))
 
         case Expressions.fillPattern(color: String, obj: String) =>
-            Nil
+            Fill.generateColoredPixelsRecursive(color, getCoordinateList(obj), List[DrawResult]())
 
-        case _ => throw new UnsupportedOperationException(commandText)
+        case _ => throw new RuntimeException(commandText)
     }
 }

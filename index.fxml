@@ -25,6 +25,7 @@
             layoutY="570"
             prefWidth="900"
             prefHeight="198"
+            editable="false"
             style="-fx-font-size: 14" />
     </children>
 </Pane>

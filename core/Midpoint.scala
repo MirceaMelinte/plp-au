@@ -4,9 +4,10 @@ import model.DrawResult
 
 object Midpoint {
     def generateCirclePixels(x: Int, y: Int, radius: Int): List[DrawResult] = {
+        val defaultColor = "#000000"
+
         val (deltaX, deltaY, offset) = (1, -2 * radius, 1 - radius)
 
-        val defaultColor = "#000000"
         val initialPixels = List[DrawResult](
             new DrawResult(x, y + radius, defaultColor),
             new DrawResult(x, y - radius, defaultColor),

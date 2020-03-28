@@ -6,12 +6,15 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.PixelWriter;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import java.util.List;
 import model.DrawResult;
 import model.TextResult;
-
-import java.util.List;
 
 public class ViewModel {
     @FXML
@@ -21,15 +24,18 @@ public class ViewModel {
     @FXML
     TextArea textAreaErrors;
 
+    static final KeyCombination keyShiftTab = new KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_ANY);
+
     public ViewModel() { }
 
     @FXML
     public void initialize() {
         Utils.drawCanvasGrid(drawingCanvas);
 
-        drawingCanvas.setOnMouseClicked(event -> processEditorInput());
-        textAreaEditor.focusedProperty().addListener((ov, oldV, newV) -> {
-            if (!newV) {
+        textAreaErrors.setText("Tip: Use the CTRL+F key combination for parsing the command input from the editor.");
+
+        textAreaEditor.addEventFilter(KeyEvent.KEY_RELEASED, keyEvent -> {
+            if (keyShiftTab.match(keyEvent)) {
                 processEditorInput();
             }
         });
