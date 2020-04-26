@@ -32,6 +32,6 @@ object Format {
         case Expressions.fillPattern(color: String, obj: String) =>
             Fill.generateColoredPixelsRecursive(color, getCoordinateList(obj), List[DrawResult]())
 
-        case _ => throw new RuntimeException(commandText)
+        case _ => throw new NoSuchElementException(commandText)
     }
 }

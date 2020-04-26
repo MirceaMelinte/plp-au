@@ -21,7 +21,7 @@ object Interpreter {
                 .filter(drawResult => clipOutOfBoundsDrawings(drawResult, boundingBoxCommand))
                 .asJava
         } catch {
-            case ex: RuntimeException =>
+            case ex: NoSuchElementException =>
                 errorCallback("Syntax error(s) have been found in the following line/command:\n" + ex.getMessage())
                 List[DrawResult]().asJava
         }

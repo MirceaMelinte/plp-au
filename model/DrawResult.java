@@ -1,7 +1,5 @@
 package model;
 
-import javafx.scene.paint.Color;
-
 public class DrawResult {
     private int xCoordinate;
     private int yCoordinate;

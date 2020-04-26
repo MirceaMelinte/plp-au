@@ -1,0 +1,116 @@
+import org.sireum.logika._
+
+def addOuterCirclePixelsRecursive(deltaX: Z,
+                                      deltaY: Z,
+                                      offset: Z,
+                                      offsetX: Z,
+                                      offsetY: Z,
+                                      x: Z,
+                                      y: Z): ZS = {
+    l"""{
+    	requires	x ≥ 0
+    				    y ≥ 0
+    }"""
+
+    assume(deltaX >= 1)
+    assume(deltaY >= -2 * offsetY)
+    assume(offset >= 1 - offsetY)
+    assume(offsetX >= 0)
+
+    if (offsetX >= offsetY) {
+        return ZS()
+    } else {
+      	if (offset >= 0) {
+        		val deltaXnew: Z = deltaX + 2
+        		l"""{
+        			1. ¬(offsetX ≥ offsetY)		  premise
+              2. offset ≥ 0               premise
+              3. deltaX ≥ 1               premise
+              4. deltaXnew = deltaX + 2   premise
+              5. deltaXnew > deltaX       algebra 4
+        		}"""
+            assert(deltaXnew > deltaX)
+
+        		val deltaYnew: Z = deltaY + 2
+            l"""{
+              1. ¬(offsetX ≥ offsetY)     premise
+              2. offset ≥ 0               premise
+              3. deltaY ≥ -2 * offsetY    premise
+              4. deltaYnew = deltaY + 2   premise
+              5. deltaYnew > deltaY       algebra 4
+            }"""
+            assert(deltaYnew > deltaY)
+
+        		val offsetnew: Z = offset + deltaX + 2 + deltaY + 2
+
+        		val offsetXnew: Z = offsetX + 1
+            l"""{
+              1. ¬(offsetX ≥ offsetY)       premise
+              2. offset ≥ 0                 premise
+              3. offsetX ≥ 0                premise
+              4. offsetXnew = offsetX + 1   premise
+              5. offsetXnew > offsetX       algebra 4
+            }"""
+            assert(offsetXnew > offsetX)
+
+        		val offsetYnew: Z = offsetY - 1
+            l"""{
+              1. ¬(offsetX ≥ offsetY)       premise
+              2. offset ≥ 0                 premise
+              3. offsetYnew = offsetY - 1   premise
+              4. offsetYnew < offsetY       algebra 3
+            }"""
+            assert(offsetYnew < offsetY)
+
+            addOuterCirclePixelsRecursive(
+                deltaXnew,
+                deltaYnew,
+                offsetnew,
+                offsetXnew,
+                offsetYnew,
+                x,
+                y)
+            return ZS()
+  	    } else {
+            val deltaXnew: Z = deltaX + 2
+            l"""{
+              1. ¬(offsetX ≥ offsetY)     premise
+              2. ¬(offset ≥ 0)            premise
+              3. deltaX ≥ 1               premise
+              4. deltaXnew = deltaX + 2   premise
+              5. deltaXnew > deltaX       algebra 4
+            }"""
+            assert(deltaXnew > deltaX)
+
+            val offsetnew: Z = offset + deltaX
+            l"""{
+              1. ¬(offsetX ≥ offsetY)         premise
+              2. ¬(offset ≥ 0)                premise
+              3. deltaX ≥ 1                   premise
+              4. offsetnew = offset + deltaX  premise
+              5. offsetnew ≠ deltaX           algebra 2 4
+            }"""
+            assert(offsetnew != deltaX)
+
+            val offsetXnew: Z = offsetX + 1
+            l"""{
+              1. ¬(offsetX ≥ offsetY)       premise
+              2. ¬(offset ≥ 0)              premise
+              3. offsetX ≥ 0                premise
+              4. offsetXnew = offsetX + 1   premise
+              5. offsetXnew > offsetX       algebra 4
+            }"""
+            assert(offsetXnew > offsetX)
+
+  	        addOuterCirclePixelsRecursive(
+  	            deltaXnew,
+  	            deltaY,
+  	            offsetnew,
+  	            offsetXnew,
+  	            offsetY,
+  	            x,
+  	            y)
+         		return ZS()
+      	}
+    }
+}
